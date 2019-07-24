@@ -1,6 +1,6 @@
 <template>
     <div class="scene">
-        <div class="cube show-front">
+        <div :class="getClassForCube()" @transitionend="transitionComplete">
             <div class="cube__face cube__face--front">front</div>
             <div class="cube__face cube__face--right">right</div>
             <div class="cube__face cube__face--left">left</div>
@@ -13,17 +13,33 @@
 <script>
   export default {
     name: 'CubyMcCubeFace',
+
+    props: {
+      rotateTo: String,
+    },
+
+    methods: {
+      transitionComplete () {
+        this.$emit('complete')
+      },
+
+      getClassForCube () {
+        return this.rotateTo
+          ? `cube with-transition show-${this.rotateTo}`
+          : 'cube'
+      }
+    }
   }
 </script>
 
 
 <style scoped lang="scss">
-    $size: 420px;
+    $size: 300px;
 
     .scene {
         width: $size;
         height: $size;
-        perspective: 500px;
+        perspective: 400px;
         margin: 0 auto;
     }
 
@@ -33,8 +49,11 @@
         position: relative;
         transform-style: preserve-3d;
         transform: translateZ(calc(#{$size} / -2));
-        transition: transform .3s ease-in-out;
 
+
+        &.with-transition {
+            transition: transform .3s ease-in-out;
+        }
     }
 
     .cube__face {
@@ -44,7 +63,7 @@
         border: 1px solid #000;
         text-align: center;
         font-size: 3rem;
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.6);
     }
 
     .cube__face--front {

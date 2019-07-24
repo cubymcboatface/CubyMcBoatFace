@@ -15,9 +15,9 @@
 
 <style scoped>
     #progress-mc-progress-face {
-        width: 50%;
+        width: 392px;
         margin: 2rem auto;
-        border: 1rem #369 solid;
+        border: 1rem #39C solid;
         height: 5rem;
     }
 </style>
