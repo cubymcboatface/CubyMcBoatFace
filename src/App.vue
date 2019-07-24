@@ -3,13 +3,13 @@
         <ProgressMcProgressFace/>
         <div id="grid">
             <OptionMcOptionFace/>
-            <OptionMcOptionFace>TOP</OptionMcOptionFace>
+            <OptionMcOptionFace><img class="option" :src="options.top"/></OptionMcOptionFace>
             <OptionMcOptionFace/>
-            <OptionMcOptionFace>LEFT</OptionMcOptionFace>
+            <OptionMcOptionFace><img class="option" :src="options.left"/></OptionMcOptionFace>
             <CubyMcCubeFace :rotateTo="rotateTo" :frontFace="frontFace" :nextFace="nextFace" @complete="resetRotation"/>
-            <OptionMcOptionFace>RIGHT</OptionMcOptionFace>
+            <OptionMcOptionFace><img class="option" :src="options.right"/></OptionMcOptionFace>
             <OptionMcOptionFace/>
-            <OptionMcOptionFace>BOTTOM</OptionMcOptionFace>
+            <OptionMcOptionFace><img class="option" :src="options.bottom"/></OptionMcOptionFace>
             <OptionMcOptionFace/>
         </div>
 
@@ -22,6 +22,13 @@
   import OptionMcOptionFace from './components/OptionMcOptionFace'
   import boat from './assets/boat.jpeg'
   import jeremy from './assets/jeremy.jpg'
+  import flange from './assets/flange.png'
+  import skrunky from './assets/skrunky.jpeg'
+  import spanners from './assets/spanners.jpeg'
+
+  const allImages = [boat, jeremy, flange, skrunky, spanners]
+
+  const randomImage = () => allImages[Math.floor(Math.random() * allImages.length)]
 
   export default {
     name: 'app',
@@ -30,13 +37,25 @@
     data () {
       return {
         rotateTo: null,
-        frontFace: jeremy,
-        nextFace: boat,
-        faces: []
+        frontFace: randomImage(),
+        options: {
+          top: randomImage(),
+          left: randomImage(),
+          right: randomImage(),
+          bottom: randomImage(),
+        },
+        nextFace: '',
       }
     },
 
     methods: {
+      randomizeOptions () {
+        this.options.top = randomImage()
+        this.options.left = randomImage()
+        this.options.bottom = randomImage()
+        this.options.right = randomImage()
+      },
+
       onKeyUp (event) {
         if (this.rotateTo) {
           return
@@ -53,7 +72,11 @@
             return this.rotate('left')
         }
       },
+
       rotate (direction) {
+        this.nextFace = this.options[direction]
+        this.options[direction] = this.nextFace
+
         this.rotateTo = direction
       },
 
@@ -62,11 +85,13 @@
         const tempFace = this.frontFace
         this.frontFace = this.nextFace
         this.nextFace = tempFace
+        this.randomizeOptions()
       }
     },
 
     created () {
       document.addEventListener('keyup', (event) => this.onKeyUp(event))
+      this.randomizeOptions()
     },
 
     destroyed () {
@@ -93,5 +118,10 @@
         grid-template-rows: repeat(3, 300px);
         border: none;
         margin: 0 auto;
+    }
+
+    .option {
+        width: 100px;
+        height: 100px;
     }
 </style>
