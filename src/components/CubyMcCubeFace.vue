@@ -1,11 +1,13 @@
 <template>
     <div class="scene">
         <div :class="getClassForCube()" @transitionend="transitionComplete">
-            <div class="cube__face cube__face--front">front</div>
-            <div class="cube__face cube__face--right">right</div>
-            <div class="cube__face cube__face--left">left</div>
-            <div class="cube__face cube__face--top">top</div>
-            <div class="cube__face cube__face--bottom">bottom</div>
+            <div class="cube__face cube__face--front" :style="`background-image: url(${this.frontFace});`">
+                front
+            </div>
+            <div class="cube__face cube__face--right" :style="`background-image: url(${this.nextFace});`">right</div>
+            <div class="cube__face cube__face--left" :style="`background-image: url(${this.nextFace});`">left</div>
+            <div class="cube__face cube__face--top" :style="`background-image: url(${this.nextFace});`">top</div>
+            <div class="cube__face cube__face--bottom" :style="`background-image: url(${this.nextFace});`">bottom</div>
         </div>
     </div>
 </template>
@@ -16,6 +18,8 @@
 
     props: {
       rotateTo: String,
+      frontFace: String,
+      nextFace: String,
     },
 
     methods: {
@@ -63,7 +67,9 @@
         border: 1px solid #000;
         text-align: center;
         font-size: 3rem;
-        background-color: rgba(255, 255, 255, 0.6);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
     }
 
     .cube__face--front {

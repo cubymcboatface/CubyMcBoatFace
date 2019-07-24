@@ -6,7 +6,7 @@
             <OptionMcOptionFace>TOP</OptionMcOptionFace>
             <OptionMcOptionFace/>
             <OptionMcOptionFace>LEFT</OptionMcOptionFace>
-            <CubyMcCubeFace :rotateTo="rotateTo" @complete="resetRotation"/>
+            <CubyMcCubeFace :rotateTo="rotateTo" :frontFace="frontFace" :nextFace="nextFace" @complete="resetRotation"/>
             <OptionMcOptionFace>RIGHT</OptionMcOptionFace>
             <OptionMcOptionFace/>
             <OptionMcOptionFace>BOTTOM</OptionMcOptionFace>
@@ -20,6 +20,8 @@
   import ProgressMcProgressFace from './components/ProgressMcProgressFace'
   import CubyMcCubeFace from './components/CubyMcCubeFace'
   import OptionMcOptionFace from './components/OptionMcOptionFace'
+  import boat from './assets/boat.jpeg'
+  import jeremy from './assets/jeremy.jpg'
 
   export default {
     name: 'app',
@@ -28,20 +30,27 @@
     data () {
       return {
         rotateTo: null,
+        frontFace: jeremy,
+        nextFace: boat,
+        faces: []
       }
     },
 
     methods: {
       onKeyUp (event) {
+        if (this.rotateTo) {
+          return
+        }
+
         switch (event.key) {
           case 'ArrowUp':
-            return this.rotate('top')
-          case 'ArrowLeft':
-            return this.rotate('left')
-          case 'ArrowDown':
             return this.rotate('bottom')
-          case 'ArrowRight':
+          case 'ArrowLeft':
             return this.rotate('right')
+          case 'ArrowDown':
+            return this.rotate('top')
+          case 'ArrowRight':
+            return this.rotate('left')
         }
       },
       rotate (direction) {
@@ -50,6 +59,9 @@
 
       resetRotation () {
         this.rotateTo = null
+        const tempFace = this.frontFace
+        this.frontFace = this.nextFace
+        this.nextFace = tempFace
       }
     },
 
