@@ -1,12 +1,16 @@
 <template>
     <div class="option">
-        <slot/>
+        <h2 :style="`color: ${colour}`">{{ text }}</h2>
     </div>
 </template>
 
 <script>
   export default {
-    name: 'OptionMcOptionFace.vue'
+    name: 'OptionMcOptionFace.vue',
+    props: {
+      text: String,
+      colour: String,
+    }
   }
 </script>
 

@@ -3,13 +3,14 @@
         <ProgressMcProgressFace/>
         <div id="grid">
             <OptionMcOptionFace/>
-            <OptionMcOptionFace><img class="option" :src="options.top"/></OptionMcOptionFace>
+            <OptionMcOptionFace text="Top" colour="green"/>
             <OptionMcOptionFace/>
-            <OptionMcOptionFace><img class="option" :src="options.left"/></OptionMcOptionFace>
-            <CubyMcCubeFace :rotateTo="rotateTo" :frontFace="frontFace" :nextFace="nextFace" @complete="resetRotation"/>
-            <OptionMcOptionFace><img class="option" :src="options.right"/></OptionMcOptionFace>
+            <OptionMcOptionFace text="Left" colour="red"/>
+            <CubyMcCubeFace :rotateTo="rotateTo" :frontFace="frontFace" :nextFace="nextFace"
+                            @complete="resetRotation"/>
+            <OptionMcOptionFace text="Right" colour="blue"/>
             <OptionMcOptionFace/>
-            <OptionMcOptionFace><img class="option" :src="options.bottom"/></OptionMcOptionFace>
+            <OptionMcOptionFace text="Bottom" colour="orange"/>
             <OptionMcOptionFace/>
         </div>
 
@@ -108,10 +109,5 @@
         grid-template-rows: repeat(3, 300px);
         border: none;
         margin: 0 auto;
-    }
-
-    .option {
-        width: 100px;
-        height: 100px;
     }
 </style>
