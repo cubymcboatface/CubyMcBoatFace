@@ -20,15 +20,8 @@
   import ProgressMcProgressFace from './components/ProgressMcProgressFace'
   import CubyMcCubeFace from './components/CubyMcCubeFace'
   import OptionMcOptionFace from './components/OptionMcOptionFace'
-  import boat from './assets/boat.jpeg'
-  import jeremy from './assets/jeremy.jpg'
-  import flange from './assets/flange.png'
-  import skrunky from './assets/skrunky.jpeg'
-  import spanners from './assets/spanners.jpeg'
 
-  const allImages = [boat, jeremy, flange, skrunky, spanners]
-
-  const randomImage = () => allImages[Math.floor(Math.random() * allImages.length)]
+  const randomOption = () => ''
 
   export default {
     name: 'app',
@@ -37,12 +30,12 @@
     data () {
       return {
         rotateTo: null,
-        frontFace: randomImage(),
+        frontFace: randomOption(),
         options: {
-          top: randomImage(),
-          left: randomImage(),
-          right: randomImage(),
-          bottom: randomImage(),
+          top: randomOption(),
+          left: randomOption(),
+          right: randomOption(),
+          bottom: randomOption(),
         },
         nextFace: '',
       }
@@ -50,10 +43,10 @@
 
     methods: {
       randomizeOptions () {
-        this.options.top = randomImage()
-        this.options.left = randomImage()
-        this.options.bottom = randomImage()
-        this.options.right = randomImage()
+        this.options.top = randomOption()
+        this.options.left = randomOption()
+        this.options.bottom = randomOption()
+        this.options.right = randomOption()
       },
 
       onKeyUp (event) {
@@ -74,9 +67,6 @@
       },
 
       rotate (direction) {
-        this.nextFace = this.options[direction]
-        this.options[direction] = this.nextFace
-
         this.rotateTo = direction
       },
 
